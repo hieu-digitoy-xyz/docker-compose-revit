@@ -1,7 +1,7 @@
 version: '1.0.1'
 services:
   web_admin_revit:
-    image: voixmomotalk/web_admin_revit:latest
+    image: voixmomotalk/web_admin_revit:1.0.1
     ports:
       - 80:80
   api_revit:
