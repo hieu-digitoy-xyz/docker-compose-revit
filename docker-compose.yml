@@ -1,4 +1,4 @@
-version: '1.0.0'
+version: '1.0.1'
 services:
   web_admin_revit:
     image: voixmomotalk/web_admin_revit:latest
@@ -9,10 +9,7 @@ services:
     ports:
       - 8080:80
   sql_server:
-    image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Revit@2023
+    image: voixmomotalk/database_revit:1.0.2
     ports:
       - 1433:1433
     volumes:
