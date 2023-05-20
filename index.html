@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="hướng-dẫn-deploy-server-revit">Hướng dẫn Deploy server Revit</h1>
+<h2 id="tạo-server-ubuntu-trên-aws-amazon-lighsail">1. Tạo server Ubuntu trên AWS (<a href="https://lightsail.aws.amazon.com/ls/webapp/home/instances">Amazon Lighsail</a>)</h2>
+<p><a href="https://scribehow.com/shared/Amazon_Workflow__ZcJ_BEyDSLG1sLtFQZkeyg">Hướng dẫn tạo server Ubuntu</a></p>
+<h2 id="cấu-hình-port--deploy">2. Cấu hình port + deploy</h2>
+<h3 id="mở-port-trên-aws-console">2.1. Mở port trên AWS Console</h3>
+<p><a href="https://scribehow.com/shared/Mo_port_tren_AWS_Console__l1yQlJfMSMq8OFL1dvSsvA">Hướng dẫn mở port trên AWS Console</a></p>
+<h3 id="mở-port-trên-server-ubuntu">2.2. Mở port trên server Ubuntu</h3>
+<p><a href="https://scribehow.com/shared/Amazon_Workflow__X1sxqyfnSQCbULqVeSoTvw">Hướng dẫn kết nối đến server Ubuntu</a></p>
+<p>Khi kết nối thành công, sẽ hiển thị màn hình như sau:<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/2.2.png" alt=""></p>
+<p>Chạy từng dòng lệnh sau:<br>
+<strong>(lưu ý: có những trường hợp yều cầu lựa chọn Y/N<br>
+=&gt; gõ <code>y</code><br>
+=&gt; <code>Enter</code>)</strong></p>
+<blockquote>
+<p>sudo ufw enable</p>
+</blockquote>
+<p>Mở port cho service database</p>
+<blockquote>
+<p>sudo ufw allow 1433</p>
+</blockquote>
+<p>Mở port cho service api</p>
+<blockquote>
+<p>sudo ufw allow 8080</p>
+</blockquote>
+<h3 id="cài-đặt-docker-và-docker-compose">2.3. Cài đặt Docker và Docker Compose</h3>
+<h4 id="cài-đặt-docker">2.3.1. Cài đặt Docker</h4>
+<p>Chạy từng dòng lệnh sau:<br>
+<strong>(lưu ý: có những trường hợp yều cầu lựa chọn Y/N<br>
+=&gt; gõ <code>y</code><br>
+=&gt; <code>Enter</code>)</strong></p>
+<blockquote>
+<p>sudo apt-get update</p>
+</blockquote>
+<blockquote>
+<p>sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release</p>
+</blockquote>
+<blockquote>
+<p>curl -fsSL <a href="https://download.docker.com/linux/ubuntu/gpg">https://download.docker.com/linux/ubuntu/gpg</a> | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</p>
+</blockquote>
+<blockquote>
+<p>echo <br>
+“deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] <a href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a> <br>
+$(lsb_release -cs) stable” | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</p>
+</blockquote>
+<blockquote>
+<p>sudo apt-get update</p>
+</blockquote>
+<blockquote>
+<p>sudo apt-get install docker-ce docker-ce-cli <a href="http://containerd.io">containerd.io</a></p>
+</blockquote>
+<blockquote>
+<p>sudo docker run hello-world</p>
+</blockquote>
+<p>Nếu màn hình hiển thị dòng chữ <strong>Hello from Docker!</strong> như sau: (nghĩa là đã cài <strong>Docker</strong> thành công)<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/2.3.1.png" alt=""></p>
+<h4 id="cài-đặt-docker-compose">2.3.2. Cài đặt Docker Compose</h4>
+<blockquote>
+<p>sudo curl -L <a href="https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-">https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-</a><code>uname -s</code>-<code>uname -m</code> -o /usr/local/bin/docker-compose</p>
+</blockquote>
+<blockquote>
+<p>sudo chmod +x /usr/local/bin/docker-compose</p>
+</blockquote>
+<blockquote>
+<p>docker-compose --version</p>
+</blockquote>
+<p>Nếu hiển thị ra dòng chữ: <strong>Docker Compose version …</strong> như sau: (nghĩa là đã cài <strong>Docker Compose</strong> thành công)<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/2.3.2.png" alt=""></p>
+<h3 id="lấy-file-docker-compose-bằng-git-và-deploy">2.4. Lấy file docker-compose bằng Git và deploy</h3>
+<blockquote>
+<p>git clone <a href="https://github.com/hieu-digitoy-xyz/docker-compose-revit.git">https://github.com/hieu-digitoy-xyz/docker-compose-revit.git</a></p>
+</blockquote>
+<blockquote>
+<p>ls</p>
+</blockquote>
+<p>Nếu hiển thị thư mục <strong>docker-compose-revit</strong>, nghĩa là đã kéo file thành công.<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/2.4.1.png" alt=""></p>
+<h4 id="tiến-hành-chạy-file">Tiến hành chạy file</h4>
+<blockquote>
+<p>cd docker-compose-revit</p>
+</blockquote>
+<blockquote>
+<p>ls</p>
+</blockquote>
+<p>File <strong>docker-compose.yml</strong> sẽ được tìm thấy ở đây</p>
+<blockquote>
+<p>sudo docker-compose up</p>
+</blockquote>
+<p>Sau khi chạy dòng lệnh trên mà không báo lỗi, nghĩa là đã deploy server thành công.<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/2.4.2.png" alt=""></p>
+<h3 id="kiểm-tra-trên-địa-chỉ-ip">2.5. Kiểm tra trên địa chỉ IP</h3>
+<p>Lấy IP từ màn hình AWS Console<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/ip.png" alt=""><br>
+Lấy IP chạy thử trên trình duyệt, hiển thị được màn hình login là thành công.<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/check_ip_web.png" alt=""><br>
+Chạy link sau để kiểm tra api: http://<strong>IP</strong>:8080/api/Information<br>
+thay thế <strong>IP</strong> bằng IP lấy được ở trên<br>
+<img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/check_ip_api.png" alt=""></p>
+<h3 id="update-dns-cho-domain-bimtools.info">2.6. Update DNS cho domain: <a href="http://bimtools.info">bimtools.info</a></h3>
+<p>Lấy <strong>IP</strong> lấy được trong console gửi cho Hiếu 😎</p>
+<h3 id="kiểm-tra-trên-domain-bimtools.info">2.7. Kiểm tra trên domain: <a href="http://bimtools.info">bimtools.info</a></h3>
+<p><img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/check_domain.png" alt=""></p>
+</div>
+</body>
+
+</html>
