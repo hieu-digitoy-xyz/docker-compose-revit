@@ -50,8 +50,15 @@
 <p>curl -fsSL <a href="https://download.docker.com/linux/ubuntu/gpg">https://download.docker.com/linux/ubuntu/gpg</a> | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</p>
 </blockquote>
 <blockquote>
-<p>echo \ </br>
-"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+<p>echo \ 
+</p>
+</blockquote>
+ <blockquote>
+<p>
+"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \</p>
+</blockquote>
+<blockquote>
+<p>
 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</p>
 </blockquote>
 <blockquote>
