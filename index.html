@@ -50,9 +50,9 @@
 <p>curl -fsSL <a href="https://download.docker.com/linux/ubuntu/gpg">https://download.docker.com/linux/ubuntu/gpg</a> | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</p>
 </blockquote>
 <blockquote>
-<p>echo <br>
-“deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] <a href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a> <br>
-$(lsb_release -cs) stable” | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</p>
+<p>echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</p>
 </blockquote>
 <blockquote>
 <p>sudo apt-get update</p>
@@ -67,7 +67,7 @@ $(lsb_release -cs) stable” | sudo tee /etc/apt/sources.list.d/docker.list &gt;
 <img src="https://hieu-digitoy-xyz.github.io/docker-compose-revit/image/2.3.1.png" alt=""></p>
 <h4 id="cài-đặt-docker-compose">2.3.2. Cài đặt Docker Compose</h4>
 <blockquote>
-<p>sudo curl -L <a href="https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-">https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-</a><code>uname -s</code>-<code>uname -m</code> -o /usr/local/bin/docker-compose</p>
+<p>sudo curl -L https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose</p>
 </blockquote>
 <blockquote>
 <p>sudo chmod +x /usr/local/bin/docker-compose</p>
